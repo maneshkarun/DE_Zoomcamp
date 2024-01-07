@@ -1,0 +1,59 @@
+docker run -it \
+    -e POSTGRES_USER="root" ^
+    -e POSTGRES_PASSWORD="root" ^
+    -e POSTGRES_DB="ny_taxi" ^
+    -v E:/DE_Zoomcamp/ny_taxi_postgres_data:/var/lib/postgresql/data ^
+    -p 5431:5432 ^
+    --network="pg-network" ^
+    --name="pg-database" ^
+postgres:13
+
+
+command to connect to the database from host machine:
+    pgcli -h localhost -p 5431 -U root -d ny_taxi
+
+command to establish pgAdmin connection:
+    docker run -it ^
+        -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" ^
+        -e PGADMIN_DEFAULT_PASSWORD="root" ^
+        -p 8080:80 ^
+        --network="pg-network" ^
+        --name="pg-admin" ^
+    dpage/pgadmin4
+
+    pgAdmin URL: http://localhost:80
+    pgAdmin username: root
+    pgAdmin password: root
+
+URL = 
+
+python ingest_data.py ^
+    --user=root ^   
+    --password=root ^
+    --host=localhost ^
+    --port=5431 ^
+    --db_name=ny_taxi ^
+    --table_name=yellow_taxi_data ^
+    --url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+
+
+    python ingest_data.py \
+    --user=root \   
+    --password=root \
+    --host=localhost \
+    --port=5431 \
+    --db_name=ny_taxi \
+    --table_name=yellow_taxi_data \
+    --url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+
+
+docker run -it \
+    --network="pg-network" \
+    taxi_ingest:1.0 \
+    --user=root \
+    --password=root \
+    --host=pg-database \
+    --port=5432 \
+    --db_name=ny_taxi \
+    --table_name=yellow_taxi_data \
+    --url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2019-01.csv.gz"
