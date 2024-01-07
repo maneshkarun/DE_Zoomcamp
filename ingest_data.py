@@ -18,7 +18,7 @@ def main(params):
     table_name = params.table_name 
     url = params.url
 
-    csv_name = 'output.csv.tz'
+    csv_name = 'output.csv.gz'
     os.system(f"wget {url} -O {csv_name}")
 
     engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db_name}")
@@ -46,7 +46,7 @@ def main(params):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--user', help='username for postgres')
+    parser.add_argument('--user', help='username for postgres', )
     parser.add_argument('--password', help='password for postgres')
     parser.add_argument('--host', help='host for postgres')
     parser.add_argument('--port', help='port for postgres')
