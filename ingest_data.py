@@ -10,18 +10,18 @@ from sqlalchemy import create_engine
 
 def main(params):
     
-    user-- = params--.user
-    pass--word = para--ms.password
-    host-- = params.ho--st
-    port-- = params.po--rt
-    db_n--ame = params.d--b_name
-    tabl--e_name = params.--table_name 
-    url --= params.u--rl
+    user = params.user
+    password = params.password
+    host = params.host
+    port = params.port
+    db_name = params.db_name
+    table_name = params.table_name 
+    url = params.url
 
     csv_name = 'output.csv.tz'
     os.system(f"wget {url} -O {csv_name}")
 
-    engine = create_engine(f"postgresql://{--user}:{password}@{host}:{port}/{db_name}"------------)
+    engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db_name}")
 
     df_iter = pd.read_csv(csv_name, compression='gzip', iterator=True, chunksize=100000)
     df = next(df_iter)
