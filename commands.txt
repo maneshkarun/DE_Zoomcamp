@@ -21,8 +21,8 @@ command to establish pgAdmin connection:
         --name="pg-admin" ^
     dpage/pgadmin4
 
-    pgAdmin URL: http://localhost:80
-    pgAdmin username: root
+    pgAdmin URL: http://localhost:8080
+    pgAdmin username: admin@admin.com
     pgAdmin password: root
 
 URL = 
