@@ -1,11 +1,11 @@
 docker run -it \
-    -e POSTGRES_USER="root" ^
-    -e POSTGRES_PASSWORD="root" ^
-    -e POSTGRES_DB="ny_taxi" ^
-    -v E:/DE_Zoomcamp/ny_taxi_postgres_data:/var/lib/postgresql/data ^
-    -p 5431:5432 ^
-    --network="pg-network" ^
-    --name="pg-database" ^
+    -e POSTGRES_USER="root" \
+    -e POSTGRES_PASSWORD="root" \
+    -e POSTGRES_DB="ny_taxi" \
+    -v E:/DE_Zoomcamp/ny_taxi_postgres_data:/var/lib/postgresql/data \
+    -p 5431:5432 \
+    --network="pg-network" \
+    --name="pg-database" \
 postgres:13
 
 
@@ -43,17 +43,27 @@ python ingest_data.py ^
     --host=localhost \
     --port=5431 \
     --db_name=ny_taxi \
-    --table_name=yellow_taxi_data \
+    --table_name=green_taxi_data \
+    --url="wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz"
     --url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
 
 
 docker run -it \
-    --network="pg-network" \
-    taxi_ingest:1.0 \
+    --network="de_zoomcamp_default" \
+    ingest_data:1.1 \
     --user=root \
     --password=root \
-    --host=pg-database \
+    --host=pgdatabase \
     --port=5432 \
     --db_name=ny_taxi \
     --table_name=yellow_taxi_data \
-    --url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2019-01.csv.gz"
+    --url="wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz"
+
+docker run ingest_data.py \
+--user=root \ 
+--password=root \
+--host=localhost \
+--port=5431 \
+--db_name=ny_taxi \
+--table_name=green_taxi_data \
+--url="wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz"
