@@ -2,3 +2,7 @@
 /ny_taxi_postgres_data
 /yellow_tripdata_2019-01.csv
 /taxi+_zone_lookup.csv
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+/green_tripdata_2019-09.csv.gz
