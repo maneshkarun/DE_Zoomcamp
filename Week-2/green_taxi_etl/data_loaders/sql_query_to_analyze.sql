@@ -1,1 +1,0 @@
-SELECT vendorid, COUNT(*) FROM mage.green_taxi GROUP BY "vendorid";
